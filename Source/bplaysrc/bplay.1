@@ -1,0 +1,77 @@
+.TH BPLAY 1 "10 June 1994"
+.SH NAME
+bplay, brec \- buffered sound recording/playing
+.SH SYNOPSIS
+.B bplay
+[\-S] [\-s speed] [\-b bits] [[\-t secs] | [\-T samples]]
+[[\-j secs] | [\-J samples]] [file]
+.sp
+.B brec
+[\-S] [\-s speed] [\-b bits] [[\-t secs] | [\-T samples]] [file]
+.SH DESCRIPTION
+.B bplay
+copies data from the named sound file (or the standard input if no filename
+is given) to the audio device.
+.PP
+.B brec
+copies data from the audio device to the named sound file (or the
+standard output if no filename is present).
+.PP
+These programs are eventually intended to be drop\-in replacements for the
+.B vplay
+and
+.B vrec
+programs by Michael Beck (beck@informatik.hu-berlin.de).
+.SS OPTIONS
+.TP
+.I "\-S"
+Sound file is stereo.
+.TP
+.I "\-s speed"
+The speed in samples per second.
+.TP
+.I "\-b bits"
+The number of bits per sample. Only 8 and 16 are currently supported.
+.TP
+.I "\-t secs"
+The number of seconds to be played or recorded.
+.TP
+.I "\-T samples"
+The number of samples to be played or recorded.
+.TP
+.I "\-j secs"
+When playing, the number of seconds to skip at the beginning of the input before
+playing.
+.TP
+.I "\-J samples"
+When playing, the number of samples to skip at the beginning of the input before
+playing.
+.SH FILES
+.I /dev/dsp
+The audio device.
+.SH BUGS
+.PP
+The \-t, \-T, \-j and \-J options may do strange things when playing VOC
+files.
+.PP
+There are limitations on recording VOC format files - specifically
+VOC files are only
+recorded in the newer 1.20 version of the format, which older player
+programs may choke on. These limitations should be fixed in v1.0.
+.PP
+12 bit samples are not currently supported. This may be fixed if someone
+tells me the format used for 12 bit samples - my sound card doesn't
+support 12 bit mode. I'm not sure that the sound driver supports them
+either though.
+.PP
+This program runs setuid root. This is required because it uses
+setpriority() to run at the highest possible priority, and also locks
+down the buffers it uses to avoid them being swapped out.
+.SH AUTHOR
+David Monro
+davidm@cs.usyd.edu.au
+.PP
+The option parsing code was originally taken from
+.B vplay
+to maintian
+compatability.

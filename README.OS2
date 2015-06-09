@@ -1,0 +1,47 @@
+Gramofile 1.6 for OS/2 02.12.01
+-------------------------------
+
+This is the OS/2 port of gramofile a program to clean wave files
+from pops, ticks and hiss' and perform track splitting. See the
+various files in the 'Docs' directory for more.
+This release has two patches by James Tappin (April 2001 'tappin*.patch')
+already applied. Most important is a new filter to remove ticks
+(SIGNPR_CMF3). This filter uses the fftw library for the fast fourier
+transformation (http://www.fftw.org). For your convenience the necessary
+DLLs are included.
+See the gramofile homepage (http://panic.et.tudelft.nl/~costar/gramofile/)
+for more.
+
+Strictly spoken there's no installation necessary because gramofile is a
+VIO application. The included install.cmd only creates a folder on the
+desktop and a program object pointing to gramofile for those chasing
+mice.
+
+Chris Wohlgemuth
+
+http://www.geocities.com/SiliconValley/Sector/5785/
+http://www.os2world.com/cdwriting
+
+
+License
+-------
+
+GramoFile - Gramophone records to CDs, Tick Reduction, Track Splitting
+Copyright (C) 1998 J.A. Bezemer
+
+This program is free software; you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the Free
+Software Foundation; either version 2 of the License, or (at your option)
+any later version. 
+
+This program is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+for more details. 
+
+You should have received a copy of the GNU General Public License along
+with this program; if not, write to the Free Software Foundation, Inc.,
+675 Mass Ave, Cambridge, MA 02139, USA. 
+
+
+

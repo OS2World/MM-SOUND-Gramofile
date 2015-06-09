@@ -1,0 +1,73 @@
+This is version 0.96 of my buffered audio play/record program for Linux.
+Note that this is BETA software and may not work for you.
+Please mail me with any bugs/feature enhancements etc.
+
+If you receive a BINARY version of this software and it doesn't work, I
+advise you to get the source and rebuild it. Certain interfaces to the
+kernel sound driver have evolved over the life of the Linux kernel and a
+program compiled for one version may not work correctly with another
+kernel version. Recompiling fixes this problem.
+
+Features:
+Handles the following file types:
+Raw sound files (no header)
+Micro$oft WAV files
+Creative Labs Voc files (including the 16bit stereo variants and with
+support for loops).
+
+When recording there is currently a limit of 16MB files when recording
+in WAV format. There are a couple of limitations with the VOC recording;
+in particular only the v1.20 format files are produced, which won't work
+on older player programs.
+
+Details
+The program uses two processes and a large block of shared memory to
+allow asynchronous reading and writing of the file and the device. It
+also runs at the highest possible priority. Using this method it is
+possible to record at full speed (44.1kHz 16 bit stero, or about
+176Kb/s) without overruns on 486DX/33 using 8bit DMA with a slow IDE
+disk in multiuser mode until the disk gets very close to full (ie the
+head is seeking all over the disk to find free blocks and can't keep
+up).
+
+Building
+Basically, type make.
+Note that there are two commented options on the CFLAGS command line
+Adding -DDEBUG just causes lots of debuggin messages to be printed to
+the screen. Adding -DUSEBUFFLOCK compiles in some code that causes the
+shared memory to be locked down in memory. Although this seems to be a
+good idea, on older Linux versions it caused lockups (I think a deadlock
+in the kernel) and I haven't tested it for about a year, so use at own
+risk.
+
+Other things to tweak: the size of the share buffer is 256K by default,
+or just under 1.5 seconds of CD audio. Change BIGBUFFSIZE at the top of
+shmbuf.c to change this. It should always be a multiple of abuf_size,
+which is set on line 42 of sndfunc.c. This is set to 64K, which works
+well.
+
+Installing
+bplay/brec should be installed suid root. This is so that the program
+can renice itself to a higer priority. As far as I am aware there are no
+security holes in this program (it only uses the root privs when it has
+to and then immediately drops them again). Check the code and see what
+you think if you are worried. Make a link (symbolic or hard, doesn't
+matter) from brec top bplay.
+
+Install the man pages somewhere sensible. You will have to edit the brec
+manpage if you don't install it in ...../man1/brec.1
+
+
+TODO
+Tidy up and generalize the code.
+Improve the Makefile and add an installation target.
+Improve the documentation.
+Add support for the realtime scheduling extensions in the new Linux
+kernels.
+Fix the recording limits on WAV and VOC files.
+Add support for other formats (IRCAM floating point etc).
+Merge in the SunOS/Ariel version.
+Provide a Tk front end.
+
+David Monro
+davidm@cs.usyd.edu.au
